@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Management System</title>
+</head>
+
+<body>
+
+    <h1>Student Management System</h1>
+
+    <input type="text"
+           id="studentId"
+           placeholder="Enter Student ID">
+
+    <br><br>
+
+    <input type="text"
+           id="studentName"
+           placeholder="Enter Student Name">
+
+    <br><br>
+
+    <button onclick="AddStudent()">
+        Add Student
+    </button>
+
+    <br><br>
+
+    <p id="result"></p>
+
+<script>
+const API_URL = "https://1igxrjr7q7.execute-api.ap-south-1.amazonaws.com";
+
+async function AddStudent() {
+
+    let studentId = document.getElementById("studentId").value;
+    let studentName = document.getElementById("studentName").value;
+
+    let response = await fetch("https://1igxrjr7q7.execute-api.ap-south-1.amazonaws.com/students",  {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            studentId: studentId,
+            name: studentName
+        })
+    });
+
+    let data = await response.text();
+
+    document.getElementById("result").innerHTML = data;
+}
+</script>
+
+</body>
+</html>
